@@ -3,11 +3,16 @@
 function getDogImage(breed) {
 //https://dog.ceo/api/breed/hound/images/random
   fetch(`https://dog.ceo/api/breed/${breed}/images/random`)
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error (response.statusText);
+    })
     .then(response => response.json())
     .then(responseJson => 
       displayResults(responseJson))
-    .catch(error => alert('Something went wrong. Try again later.'));
-
+    .catch(error => alert('Enter a valid dog breed'));
 }
 
 function displayResults(responseJson) {
